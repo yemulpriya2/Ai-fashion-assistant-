@@ -1,0 +1,718 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FASHIORA — AI Fashion Stylist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
+</head>
+<body>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-logo">FASHI<span>ORA</span></div>
+    <div class="nav-links">
+      <a href="#stylist">Stylist</a>
+      <a href="#seasonal">Seasons</a>
+      <a href="#favourites">💗 Favourites</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+      <button class="dark-mode-toggle" id="darkModeBtn" title="Toggle Dark Mode">🌙</button>
+      <a href="#" id="login" class="nav-cta">Sign In</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-text">STYLE</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">AI-Powered Fashion Intelligence</p>
+      <h1 class="hero-title">
+        Dress with<br>
+        <em>Confidence</em>
+      </h1>
+      <p class="hero-sub">Upload your photo. Let our AI analyze your unique features and curate outfits that make you unforgettable — for every occasion.</p>
+      <div class="hero-btns">
+        <a href="#stylist" class="hero-btn">✦ Begin Your Style Journey</a>
+        <button class="hero-btn-quiz" onclick="openQuiz()">🎯 Take Style Quiz</button>
+      </div>
+      <p class="hero-quiz-hint">← Not sure where to start? Take our 5-question style quiz first!</p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-circle c1"></div>
+      <div class="hero-circle c2"></div>
+      <div class="hero-circle c3"></div>
+      <div class="hero-icon-wrap">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="28" r="14" stroke="#f2a7bb" stroke-width="1.5"/>
+          <path d="M14 68c0-14.359 11.640-26 26-26h0c14.359 0 26 11.641 26 26" stroke="#8b3a52" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M32 42l8 10 8-10" stroke="#f2a7bb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seasonal Style Guide -->
+  <section class="seasonal" id="seasonal">
+    <p class="section-label">✦ Seasonal Style</p>
+    <h2 class="section-title">Dress for Every<br><em>Season</em></h2>
+    <div class="seasonal-tabs">
+      <button class="season-tab active" data-season="spring" onclick="switchSeason(this,'spring')">🌸 Spring</button>
+      <button class="season-tab" data-season="summer" onclick="switchSeason(this,'summer')">☀️ Summer</button>
+      <button class="season-tab" data-season="autumn" onclick="switchSeason(this,'autumn')">🍂 Autumn</button>
+      <button class="season-tab" data-season="winter" onclick="switchSeason(this,'winter')">❄️ Winter</button>
+    </div>
+    <div class="seasonal-content" id="seasonalContent">
+      <div class="season-panel" id="spring">
+        <div class="season-info">
+          <h3 class="season-title">Spring Wardrobe</h3>
+          <p class="season-desc">Light florals, pastel tones, and breathable fabrics. Embrace softness and renewal with layered looks that can adapt to changing temperatures.</p>
+          <div class="season-colors">
+            <div class="season-swatch" style="background:#f8c8d4" title="Blush Pink"></div>
+            <div class="season-swatch" style="background:#c8e6c9" title="Mint Green"></div>
+            <div class="season-swatch" style="background:#fff9c4" title="Butter Yellow"></div>
+            <div class="season-swatch" style="background:#e1bee7" title="Lavender"></div>
+            <div class="season-swatch" style="background:#b3e5fc" title="Sky Blue"></div>
+          </div>
+          <div class="season-items">
+            <span class="season-item">Floral midi dresses</span>
+            <span class="season-item">Linen blazers</span>
+            <span class="season-item">White sneakers</span>
+            <span class="season-item">Pastel knits</span>
+            <span class="season-item">Trench coats</span>
+          </div>
+        </div>
+        <div class="season-visual spring-bg">🌸</div>
+      </div>
+      <div class="season-panel hidden" id="summer">
+        <div class="season-info">
+          <h3 class="season-title">Summer Wardrobe</h3>
+          <p class="season-desc">Bold prints, vibrant hues, and airy silhouettes. Summer is for confidence — go bright, go breezy, and let your skin breathe.</p>
+          <div class="season-colors">
+            <div class="season-swatch" style="background:#ffcc02" title="Sunshine Yellow"></div>
+            <div class="season-swatch" style="background:#ff6b6b" title="Coral Red"></div>
+            <div class="season-swatch" style="background:#4ecdc4" title="Turquoise"></div>
+            <div class="season-swatch" style="background:#ff9a56" title="Mango Orange"></div>
+            <div class="season-swatch" style="background:#ffffff;border:1px solid #ddd" title="Crisp White"></div>
+          </div>
+          <div class="season-items">
+            <span class="season-item">Maxi sundresses</span>
+            <span class="season-item">Crop tops</span>
+            <span class="season-item">Strappy sandals</span>
+            <span class="season-item">Co-ord sets</span>
+            <span class="season-item">Denim shorts</span>
+          </div>
+        </div>
+        <div class="season-visual summer-bg">☀️</div>
+      </div>
+      <div class="season-panel hidden" id="autumn">
+        <div class="season-info">
+          <h3 class="season-title">Autumn Wardrobe</h3>
+          <p class="season-desc">Rich earth tones, luxurious textures, and layered elegance. Autumn dressing is the most stylish season — cozy yet chic.</p>
+          <div class="season-colors">
+            <div class="season-swatch" style="background:#c7522a" title="Terracotta"></div>
+            <div class="season-swatch" style="background:#8b4513" title="Saddle Brown"></div>
+            <div class="season-swatch" style="background:#d4a017" title="Mustard"></div>
+            <div class="season-swatch" style="background:#556b2f" title="Olive Green"></div>
+            <div class="season-swatch" style="background:#6b2d3a" title="Burgundy"></div>
+          </div>
+          <div class="season-items">
+            <span class="season-item">Oversized cardigans</span>
+            <span class="season-item">Leather boots</span>
+            <span class="season-item">Plaid blazers</span>
+            <span class="season-item">Turtleneck knits</span>
+            <span class="season-item">Suede jackets</span>
+          </div>
+        </div>
+        <div class="season-visual autumn-bg">🍂</div>
+      </div>
+      <div class="season-panel hidden" id="winter">
+        <div class="season-info">
+          <h3 class="season-title">Winter Wardrobe</h3>
+          <p class="season-desc">Deep jewel tones, plush fabrics, and statement outerwear. Winter dressing is about warmth with elegance — layer boldly.</p>
+          <div class="season-colors">
+            <div class="season-swatch" style="background:#1a1a2e" title="Midnight Navy"></div>
+            <div class="season-swatch" style="background:#6b2d3a" title="Deep Burgundy"></div>
+            <div class="season-swatch" style="background:#2d5a27" title="Forest Green"></div>
+            <div class="season-swatch" style="background:#4a0e8f" title="Royal Purple"></div>
+            <div class="season-swatch" style="background:#c0c0c0" title="Silver"></div>
+          </div>
+          <div class="season-items">
+            <span class="season-item">Wool coats</span>
+            <span class="season-item">Cashmere sweaters</span>
+            <span class="season-item">Knee-high boots</span>
+            <span class="season-item">Velvet dresses</span>
+            <span class="season-item">Faux fur accents</span>
+          </div>
+        </div>
+        <div class="season-visual winter-bg">❄️</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how">
+    <p class="section-label">The Process</p>
+    <h2 class="section-title">Three Steps to<br><em>Perfect Style</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📸</div>
+        <h3>Upload Photo</h3>
+        <p>Share a clear photo of yourself. Our AI needs your face to read your skin tone and features.</p>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">🎨</div>
+        <h3>AI Analysis</h3>
+        <p>Computer Vision detects your skin undertone, facial features, and complexion type in seconds.</p>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">✨</div>
+        <h3>Get Styled</h3>
+        <p>Receive curated outfit recommendations with colors, styles, and complete looks for every occasion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Stylist Tool -->
+  <section class="stylist" id="stylist">
+    <p class="section-label">Your Personal Stylist</p>
+    <h2 class="section-title">Discover Your<br><em>Signature Look</em></h2>
+
+    <div class="stylist-container">
+      <!-- Upload Panel -->
+      <div class="upload-panel" id="uploadPanel">
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <path d="M24 8v24M14 18l10-10 10 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 36v4h32v-4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="upload-title">Drop your photo here</p>
+          <p class="upload-sub">or click to browse</p>
+          <input type="file" id="photoInput" accept="image/*" hidden>
+          <button class="upload-btn" onclick="document.getElementById('photoInput').click()">Choose Photo</button>
+        </div>
+        <img id="previewImg" class="preview-img hidden" alt="Your photo"/>
+        <button class="change-btn hidden" id="changeBtn" onclick="resetPhoto()">Change Photo</button>
+      </div>
+
+      <!-- Options Panel -->
+      <div class="options-panel">
+        <div class="option-group">
+          <label class="option-label">Select Occasion</label>
+          <div class="occasion-grid" id="occasionGrid">
+            <button class="occasion-btn active" data-occasion="Casual / Everyday">
+              <span class="occ-icon">👕</span>Casual
+            </button>
+            <button class="occasion-btn" data-occasion="Office / Work">
+              <span class="occ-icon">💼</span>Office
+            </button>
+            <button class="occasion-btn" data-occasion="Party / Night Out">
+              <span class="occ-icon">🎉</span>Party
+            </button>
+            <button class="occasion-btn" data-occasion="Wedding / Formal">
+              <span class="occ-icon">💍</span>Wedding
+            </button>
+            <button class="occasion-btn" data-occasion="Date Night">
+              <span class="occ-icon">🌹</span>Date Night
+            </button>
+            <button class="occasion-btn" data-occasion="Festival / Cultural">
+              <span class="occ-icon">🎊</span>Festival
+            </button>
+            <button class="occasion-btn" data-occasion="Sports / Active">
+              <span class="occ-icon">🏃</span>Sports
+            </button>
+            <button class="occasion-btn" data-occasion="Beach / Vacation">
+              <span class="occ-icon">🌴</span>Beach
+            </button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label class="option-label">Your Gender</label>
+          <div class="gender-row">
+            <button class="gender-btn active" data-gender="Female">Female</button>
+            <button class="gender-btn" data-gender="Male">Male</button>
+            <button class="gender-btn" data-gender="Non-binary">Non-binary</button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label class="option-label">Style Preference</label>
+          <div class="style-row">
+            <button class="style-btn active" data-style="Classic & Timeless">Classic</button>
+            <button class="style-btn" data-style="Trendy & Bold">Trendy</button>
+            <button class="style-btn" data-style="Minimalist">Minimal</button>
+            <button class="style-btn" data-style="Bohemian">Boho</button>
+          </div>
+        </div>
+
+        <button class="analyze-btn" id="analyzeBtn" onclick="analyzePhoto()">
+          <span id="analyzeBtnText">✦ Analyze & Style Me</span>
+          <div class="btn-shimmer"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section hidden" id="resultsSection">
+      <div class="results-divider">
+        <span>✦ Your Style Report ✦</span>
+      </div>
+
+      <!-- Results Action Bar -->
+      <div class="results-actions">
+        <button class="result-action-btn" onclick="downloadReport()">⬇ Download My Style Report</button>
+        <button class="result-action-btn secondary" onclick="toggleMoodBoard()">🎨 View Mood Board</button>
+        <button class="result-action-btn secondary" onclick="shareStyle()">📤 Share My Style</button>
+      </div>
+
+      <!-- Mood Board (hidden by default) -->
+      <div class="moodboard hidden" id="moodBoard">
+        <div class="moodboard-header">
+          <h3 class="moodboard-title">✦ Your Style Mood Board</h3>
+          <button class="moodboard-close" onclick="toggleMoodBoard()">✕ Close</button>
+        </div>
+        <div class="moodboard-grid" id="moodBoardGrid"></div>
+      </div>
+
+      <!-- Skin Analysis -->
+      <div class="analysis-card" id="skinCard">
+        <h3 class="card-title">Skin Tone Analysis</h3>
+        <div id="skinResult" class="skin-result"></div>
+      </div>
+
+      <!-- Outfit Recommendations -->
+      <div class="outfits-grid" id="outfitsGrid"></div>
+
+      <!-- Color Palette -->
+      <div class="palette-card" id="paletteCard">
+        <h3 class="card-title">Your Color Palette</h3>
+        <div id="paletteResult" class="palette-swatches"></div>
+      </div>
+
+      <!-- Style Tips -->
+      <div class="tips-card" id="tipsCard">
+        <h3 class="card-title">Personal Style Tips</h3>
+        <div id="tipsResult" class="tips-content"></div>
+      </div>
+
+      <button class="restart-btn" onclick="restartStylist()">✦ Style Again</button>
+    </div>
+  </section>
+
+  <!-- Favourites Section -->
+  <section class="favourites-section" id="favourites">
+    <div class="fav-header">
+      <p class="section-label">💗 Saved Outfits</p>
+      <h2 class="section-title">Your Favourite<br><em>Looks</em></h2>
+      <p class="fav-subtitle">Outfits you've saved from your AI analysis sessions</p>
+    </div>
+
+    <!-- Empty state (shown when no favourites) -->
+    <div class="fav-empty" id="favEmpty">
+      <div class="fav-empty-icon">🤍</div>
+      <h3 class="fav-empty-title">No saved outfits yet!</h3>
+      <p class="fav-empty-desc">After your AI analysis, click the 🤍 heart button on any outfit card to save it here.</p>
+      <a href="#stylist" class="fav-empty-btn">✦ Start Your Analysis</a>
+    </div>
+
+    <!-- Favourites Grid (shown when there are saved outfits) -->
+    <div class="fav-grid hidden" id="favGrid"></div>
+
+    <!-- Clear all button -->
+    <div class="fav-actions hidden" id="favActions">
+      <button class="fav-clear-btn" onclick="clearAllFavourites()">🗑 Clear All Favourites</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-content">
+      <p class="section-label">About Fashiora</p>
+      <h2 class="section-title">Fashion Intelligence<br><em>For Everyone</em></h2>
+      <p class="about-text">Fashiora democratizes personal styling by combining AI and computer vision to give everyone access to expert fashion guidance — completely free. No more guessing. No more costly consultations.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">8+</span>
+          <span class="stat-label">Occasions Covered</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">AI</span>
+          <span class="stat-label">Powered Analysis</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Style Possibilities</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card ac1">
+        <div class="ac-dot"></div>
+        <span>Skin Tone Detection</span>
+      </div>
+      <div class="about-card ac2">
+        <div class="ac-dot"></div>
+        <span>Outfit Curation</span>
+      </div>
+      <div class="about-card ac3">
+        <div class="ac-dot"></div>
+        <span>Color Harmony</span>
+      </div>
+      <div class="about-card ac4">
+        <div class="ac-dot"></div>
+        <span>Occasion Styling</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="reviews" id="reviews">
+
+    <!-- Section Header -->
+    <div class="reviews-header">
+      <p class="section-label">✦ What People Say</p>
+      <h2 class="section-title">Real Stories,<br><em>Real Confidence</em></h2>
+      <p class="reviews-subtitle">Join thousands of women who discovered their signature style with Fashiora</p>
+      <button class="admin-toggle-btn" id="adminToggleBtn" onclick="toggleAdminLogin()">🔐 Admin</button>
+    </div>
+
+    <!-- Admin Login Panel -->
+    <div class="admin-panel hidden" id="adminPanel">
+      <div class="admin-panel-inner">
+        <div class="admin-panel-title">🔐 Admin Access</div>
+        <input type="password" id="adminPasswordInput" class="admin-input" placeholder="Enter admin password..." onkeydown="if(event.key==='Enter') verifyAdmin()"/>
+        <div class="admin-panel-btns">
+          <button class="admin-login-btn" onclick="verifyAdmin()">Login</button>
+          <button class="admin-cancel-btn" onclick="toggleAdminLogin()">Cancel</button>
+        </div>
+        <p class="admin-hint" id="adminHint"></p>
+      </div>
+    </div>
+
+    <!-- Admin Mode Banner (shown when logged in) -->
+    <div class="admin-mode-banner hidden" id="adminBanner">
+      <span>🛡 Admin Mode Active — You can delete any review</span>
+      <button onclick="logoutAdmin()">Logout</button>
+    </div>
+
+    <!-- Animated Stats Banner -->
+    <div class="review-stats-banner">
+      <div class="review-stat-item">
+        <div class="rstat-icon">⭐</div>
+        <div class="rstat-num" data-target="4.9">0</div>
+        <div class="rstat-label">Average Rating</div>
+      </div>
+      <div class="rstat-divider"></div>
+      <div class="review-stat-item">
+        <div class="rstat-icon">💗</div>
+        <div class="rstat-num">2,400+</div>
+        <div class="rstat-label">Happy Users</div>
+      </div>
+      <div class="rstat-divider"></div>
+      <div class="review-stat-item">
+        <div class="rstat-icon">✨</div>
+        <div class="rstat-num">98%</div>
+        <div class="rstat-label">Would Recommend</div>
+      </div>
+      <div class="rstat-divider"></div>
+      <div class="review-stat-item">
+        <div class="rstat-icon">👗</div>
+        <div class="rstat-num">15K+</div>
+        <div class="rstat-label">Outfits Styled</div>
+      </div>
+    </div>
+
+    <!-- Scrolling Marquee Quote -->
+    <div class="review-marquee-wrap">
+      <div class="review-marquee">
+        <span>✦ Best fashion app I've ever used</span>
+        <span>♥ Perfect for Indian skin tones</span>
+        <span>✦ My go-to before every event</span>
+        <span>♥ AI styling that actually works</span>
+        <span>✦ Saved me from so many bad outfits</span>
+        <span>♥ Love the color palette feature</span>
+        <span>✦ Feels like having a personal stylist</span>
+        <span>♥ Highly recommend to every girl</span>
+        <span>✦ Best fashion app I've ever used</span>
+        <span>♥ Perfect for Indian skin tones</span>
+        <span>✦ My go-to before every event</span>
+        <span>♥ AI styling that actually works</span>
+      </div>
+    </div>
+
+    <!-- Featured Big Review -->
+    <div class="review-featured">
+      <div class="review-featured-quote">"</div>
+      <p class="review-featured-text">Fashiora completely transformed the way I approach getting dressed. I used to spend hours in front of my wardrobe feeling confused — now I know exactly what colors and cuts work for me. The AI skin tone analysis was shockingly accurate!</p>
+      <div class="review-featured-author">
+        <div class="review-avatar review-avatar-lg" style="background:var(--burgundy)">P</div>
+        <div>
+          <div class="review-featured-name">Priya Satish Yemul</div>
+          <div class="review-featured-role">BBA(CA) Student · Sarhad College</div>
+          <div class="review-stars-row">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Cards Grid -->
+    <div class="reviews-grid" id="reviewsGrid">
+
+      <div class="review-card">
+        <div class="rc-top-accent"></div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:var(--mauve)">S</div>
+          <div class="review-meta">
+            <div class="review-name">Shrutika Y.</div>
+            <div class="review-date">March 2026</div>
+          </div>
+          <div class="review-rating">★★★★★</div>
+        </div>
+        <div class="review-occasion-tag">💒 Wedding / Formal</div>
+        <p class="review-text">"I used Fashiora before my cousin's wedding and the color palette it suggested was stunning. Everyone kept asking who styled me — I said AI and they couldn't believe it!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 12 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+      <div class="review-card review-card-highlight">
+        <div class="rc-top-accent"></div>
+        <div class="review-card-badge">⭐ Top Review</div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:#b5838d">A</div>
+          <div class="review-meta">
+            <div class="review-name">Anjali M.</div>
+            <div class="review-date">February 2026</div>
+          </div>
+          <div class="review-rating">★★★★★</div>
+        </div>
+        <div class="review-occasion-tag">👗 Casual / Everyday</div>
+        <p class="review-text">"Finally an app that understands Indian skin tones! The suggestions were so accurate and practical. I love that it tells you what colors to avoid too — super helpful!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 28 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="rc-top-accent"></div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:#c9ada7">R</div>
+          <div class="review-meta">
+            <div class="review-name">Riya K.</div>
+            <div class="review-date">February 2026</div>
+          </div>
+          <div class="review-rating">★★★★☆</div>
+        </div>
+        <div class="review-occasion-tag">🎉 Party / Night Out</div>
+        <p class="review-text">"The outfit suggestions for my birthday party were perfect! Loved the color palette feature. Would be even better with virtual try-on. Still 5 stars for how accurate the analysis was!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 9 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="rc-top-accent"></div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:#d4a5a5">N</div>
+          <div class="review-meta">
+            <div class="review-name">Neha T.</div>
+            <div class="review-date">January 2026</div>
+          </div>
+          <div class="review-rating">★★★★★</div>
+        </div>
+        <div class="review-occasion-tag">🌙 Date Night</div>
+        <p class="review-text">"Used this before a special dinner date and honestly felt like a whole new person! The burgundy and wine suggestions were SO perfect for my skin tone. My partner was so impressed!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 17 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="rc-top-accent"></div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:#e8a0bf">M</div>
+          <div class="review-meta">
+            <div class="review-name">Meera P.</div>
+            <div class="review-date">January 2026</div>
+          </div>
+          <div class="review-rating">★★★★★</div>
+        </div>
+        <div class="review-occasion-tag">🪔 Festival / Cultural</div>
+        <p class="review-text">"Perfect for picking festival outfits! I used it for Diwali and the traditional color recommendations were beautiful. Matched my lehenga perfectly. Will use every season!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 21 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="rc-top-accent"></div>
+        <div class="review-header">
+          <div class="review-avatar" style="background:#c47a8a">K</div>
+          <div class="review-meta">
+            <div class="review-name">Kavya R.</div>
+            <div class="review-date">December 2025</div>
+          </div>
+          <div class="review-rating">★★★★★</div>
+        </div>
+        <div class="review-occasion-tag">💼 Office / Work</div>
+        <p class="review-text">"I work in a corporate office and always struggled to look polished. Fashiora gave me a whole capsule wardrobe plan! Now I get compliments every single week. Absolutely love this!"</p>
+        <div class="rc-bottom"><button class="admin-delete-btn hidden" onclick="deleteReviewCard(this)" title="Delete review">🗑 Delete</button>
+          <span class="rc-helpful">💗 14 found helpful</span>
+          <span class="rc-verified">✓ Verified User</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Write a Review -->
+    <div class="write-review-section" id="writeReview">
+      <div class="wr-left">
+        <div class="wr-decor">✦</div>
+        <h3 class="write-review-title">Share Your<br><em>Experience</em></h3>
+        <p class="write-review-sub">Tried Fashiora? We'd love to hear your style story and help inspire others!</p>
+        <div class="wr-features">
+          <div class="wr-feature"><span class="wr-dot">✦</span> Your review helps other users</div>
+          <div class="wr-feature"><span class="wr-dot">✦</span> Published instantly on the page</div>
+          <div class="wr-feature"><span class="wr-dot">✦</span> Be part of the Fashiora family</div>
+        </div>
+      </div>
+
+      <div class="wr-right">
+        <div class="write-review-form">
+          <div class="review-form-row">
+            <div class="review-field">
+              <label class="review-field-label">Your Name</label>
+              <input type="text" id="reviewName" class="review-input" placeholder="e.g. Priya S.">
+            </div>
+            <div class="review-field">
+              <label class="review-field-label">Occasion Used For</label>
+              <select id="reviewOccasion" class="review-input review-select">
+                <option value="">Select Occasion</option>
+                <option>Casual / Everyday</option>
+                <option>Office / Work</option>
+                <option>Party / Night Out</option>
+                <option>Wedding / Formal</option>
+                <option>Date Night</option>
+                <option>Festival / Cultural</option>
+                <option>Sports / Active</option>
+                <option>Beach / Vacation</option>
+              </select>
+            </div>
+          </div>
+          <div class="review-field">
+            <label class="review-field-label">Your Rating</label>
+            <div class="review-stars-select">
+              <div class="star-picker" id="starPicker">
+                <span class="star-pick" data-val="1">★</span>
+                <span class="star-pick" data-val="2">★</span>
+                <span class="star-pick" data-val="3">★</span>
+                <span class="star-pick" data-val="4">★</span>
+                <span class="star-pick" data-val="5">★</span>
+              </div>
+              <span class="star-hint" id="starHint">Click to rate</span>
+            </div>
+          </div>
+          <div class="review-field">
+            <label class="review-field-label">Your Story</label>
+            <textarea id="reviewText" class="review-input review-textarea" placeholder="Tell us about your Fashiora experience — what occasion, what changed, what you loved..."></textarea>
+          </div>
+          <button class="review-submit-btn" onclick="submitReview()">
+            <span>✦ Publish My Review</span>
+            <div class="btn-shimmer"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Animated Loading Overlay -->
+  <div class="fashion-loading hidden" id="fashionLoading">
+    <div class="fl-inner">
+      <div class="fl-icons">
+        <span class="fl-icon" style="animation-delay:0s">👗</span>
+        <span class="fl-icon" style="animation-delay:0.3s">💄</span>
+        <span class="fl-icon" style="animation-delay:0.6s">👠</span>
+        <span class="fl-icon" style="animation-delay:0.9s">✨</span>
+        <span class="fl-icon" style="animation-delay:1.2s">💍</span>
+      </div>
+      <div class="fl-logo">FASHI<span>ORA</span></div>
+      <div class="fl-text" id="flText">Analyzing your features...</div>
+      <div class="fl-bar-wrap"><div class="fl-bar" id="flBar"></div></div>
+      <div class="fl-tip" id="flTip">Did you know? Warm undertones glow in earthy tones like rust, camel & terracotta! 🌟</div>
+    </div>
+  </div>
+
+  <!-- Style Quiz Modal -->
+  <div class="modal-overlay hidden" id="quizModal">
+    <div class="modal quiz-modal">
+      <button class="modal-close" onclick="closeQuiz()">✕</button>
+      <div class="quiz-header">
+        <div class="quiz-logo">✦ Style Quiz</div>
+        <p class="quiz-subtitle">5 quick questions to discover your fashion personality</p>
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizFill"></div></div>
+        <p class="quiz-step-label" id="quizStepLabel">Question 1 of 5</p>
+      </div>
+      <div id="quizBody"></div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div class="modal-overlay hidden" id="authModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-logo">FASHI<span>ORA</span></div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchTab('login')">Sign In</button>
+        <button class="modal-tab" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
+        <input type="email" id="loginEmail" class="modal-input" placeholder="Email Address">
+        <input type="password" id="loginPassword" class="modal-input" placeholder="Password">
+        <p class="modal-error" id="loginError"></p>
+        <button class="modal-submit" id="loginSubmitBtn">Sign In</button>
+        <p class="modal-switch">Don't have an account? <span onclick="switchTab('register')">Register here</span></p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="registerForm" class="hidden">
+        <input type="text" id="registerName" class="modal-input" placeholder="Full Name">
+        <input type="email" id="registerEmail" class="modal-input" placeholder="Email Address">
+        <input type="password" id="registerPassword" class="modal-input" placeholder="Create Password (min 6 chars)">
+        <p class="modal-error" id="registerError"></p>
+        <button class="modal-submit" id="registerSubmitBtn">Create Account</button>
+        <p class="modal-switch">Already have an account? <span onclick="switchTab('login')">Sign in here</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">FASHI<span>ORA</span></div>
+    <p class="footer-tagline">AI Fashion Intelligence · Elegance Redefined</p>
+    <p class="footer-copy">© 2025-26 Sarhad College BBA(CA) · Priya Yemul & Shrutika Yemul</p>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}?v={% now 'U' %}"></script>
+</body>
+</html>
